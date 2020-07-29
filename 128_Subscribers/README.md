@@ -1,4 +1,4 @@
-# 128 Subscribers! Thank You!
+## 128 Subscribers
 
 This is the BASIC program for the Commodore 128 used in our 128 Subscriber Special Thank You video: https://www.youtube.com/watch?v=pZl4tio-9Tg
 

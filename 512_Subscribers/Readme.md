@@ -1,3 +1,5 @@
+## 512 Subscribers
+
 512 Youtube Subscribers Amiga Pixel Art and AMOS Pro Binary Counter
 
 Video here: 
