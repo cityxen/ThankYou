@@ -12,6 +12,6 @@ Video here:
 CSDB Release:
 
 
-![CXN1024](https://raw.githubusercontent.com/cityxen/ThankYou/master/1024_Subscribers/images/CXN1024.jpg)
+![CXN1024](https://raw.githubusercontent.com/cityxen/ThankYou/master/1024_Subscribers/images/CXN1024.png)
 
 Thank You!
