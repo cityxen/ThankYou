@@ -21,9 +21,9 @@
 #import "characters-charset.asm"
 
 *=$4000 "Screen Data"
-#import "screen.asm"
+#import "screen-yt.asm"
 
-.var music = LoadSid("deadline1.sid");
+.var music = LoadSid("sids/o.sid");
 
 *=music.location "Music"
 .fill music.size, music.getData(i)
@@ -61,6 +61,11 @@
 *=$0810 "Program"
 
 start:
+
+    lda #<hello_message
+    sta zp_tmp_lo
+    lda #>hello_message
+    sta zp_tmp_hi
 
     lda #$00
     sta count_var_high
@@ -224,6 +229,8 @@ loop2:
     cmp #$07
     bne skipmove
 
+    
+
     // Move scroller characters
     ldx #$00
 mvlp1:
@@ -234,16 +241,30 @@ mvlp1:
     bne mvlp1
 
 mvlp2: // put character from scroller message onto bottom right
+
+mvlp22:
+
     ldx #$00
-    lda hello_message,x
+    lda (zp_tmp,x)
     sta SCREEN_BOTTOM_RIGHT
-    inx
-    lda hello_message,x
+    iny
+    lda (zp_tmp,x)
     cmp #$ff
     bne mvover1
-    ldx #$00
+
+    lda #<hello_message
+    sta zp_tmp_lo
+    lda #>hello_message
+    sta zp_tmp_hi
+
 mvover1:
-    stx mvlp2+1
+    inc zp_tmp_lo
+    bne mvlp223
+    inc zp_tmp_hi
+
+mvlp223:
+
+    
 
 skipmove:
     // color cycling
@@ -428,38 +449,39 @@ more_binary_counter_1:
     jmp !mbccc++
 !mbccc:
     inc $d020
-    DrawBinaryChar(binary_1_char,8,22)
-    DrawBinaryChar(binary_0_char,10,22)
-    DrawBinaryChar(binary_0_char,12,22)
-    DrawBinaryChar(binary_0_char,14,22)
-    DrawBinaryChar(binary_0_char,16,22)
-    DrawBinaryChar(binary_0_char,18,22)
-    DrawBinaryChar(binary_0_char,20,22)
-    DrawBinaryChar(binary_0_char,22,22)
-    DrawBinaryChar(binary_0_char,24,22)
-    DrawBinaryChar(binary_0_char,26,22)
-    DrawBinaryChar(binary_0_char,28,22)
+    DrawBinaryChar(binary_1_char,9,21)
+    DrawBinaryChar(binary_0_char,11,21)
+    DrawBinaryChar(binary_0_char,13,21)
+    DrawBinaryChar(binary_0_char,15,21)
+    DrawBinaryChar(binary_0_char,17,21)
+    DrawBinaryChar(binary_0_char,19,21)
+    DrawBinaryChar(binary_0_char,21,21)
+    DrawBinaryChar(binary_0_char,23,21)
+    DrawBinaryChar(binary_0_char,25,21)
+    DrawBinaryChar(binary_0_char,27,21)
+    DrawBinaryChar(binary_0_char,29,21)
+    
     jmp exit_binary_counter
 !mbccc:
-    DrawBinaryChar(binary_0_char,8,22)
+    DrawBinaryChar(binary_0_char,9,21)
     lda count_var_high
     and #$02
     cmp #$02
     bne !mbccc+
-    DrawBinaryChar(binary_1_char,10,22)
+    DrawBinaryChar(binary_1_char,11,21)
     jmp !mbccc++
 !mbccc:
-    DrawBinaryChar(binary_0_char,10,22)
+    DrawBinaryChar(binary_0_char,11,21)
 !mbccc:
 
     lda count_var_high
     and #$01
     cmp #$01
     bne !mbccc+
-    DrawBinaryChar(binary_1_char,12,22)
+    DrawBinaryChar(binary_1_char,13,21)
     jmp !mbccc++
 !mbccc:
-    DrawBinaryChar(binary_0_char,12,22)
+    DrawBinaryChar(binary_0_char,13,21)
 !mbccc:
   
     lda count_var_low
@@ -467,10 +489,10 @@ more_binary_counter_1:
     ror
     pha
     bcc db0_1
-    DrawBinaryChar(binary_1_char,28,22)
+    DrawBinaryChar(binary_1_char,29,21)
     jmp db0_2
 db0_1:
-    DrawBinaryChar(binary_0_char,28,22)
+    DrawBinaryChar(binary_0_char,29,21)
 db0_2:
 
 mbc22:
@@ -479,10 +501,10 @@ mbc22:
     ror
     pha
     bcc db1_1
-    DrawBinaryChar(binary_1_char,26,22)
+    DrawBinaryChar(binary_1_char,27,21)
     jmp db1_2
 db1_1:
-    DrawBinaryChar(binary_0_char,26,22)
+    DrawBinaryChar(binary_0_char,27,21)
 db1_2:
 
     pla
@@ -490,10 +512,10 @@ db1_2:
     ror
     pha
     bcc db2_1
-    DrawBinaryChar(binary_1_char,24,22)
+    DrawBinaryChar(binary_1_char,25,21)
     jmp db2_2
 db2_1:
-    DrawBinaryChar(binary_0_char,24,22)
+    DrawBinaryChar(binary_0_char,25,21)
 db2_2:
 
     pla
@@ -501,10 +523,10 @@ db2_2:
     ror
     pha
     bcc db3_1
-    DrawBinaryChar(binary_1_char,22,22)
+    DrawBinaryChar(binary_1_char,23,21)
     jmp db3_2
 db3_1:
-    DrawBinaryChar(binary_0_char,22,22)
+    DrawBinaryChar(binary_0_char,23,21)
 db3_2:
 
     pla
@@ -512,10 +534,10 @@ db3_2:
     ror
     pha 
     bcc db4_1
-    DrawBinaryChar(binary_1_char,20,22)
+    DrawBinaryChar(binary_1_char,21,21)
     jmp db4_2
 db4_1:
-    DrawBinaryChar(binary_0_char,20,22)
+    DrawBinaryChar(binary_0_char,21,21)
 db4_2:
 
     pla
@@ -523,10 +545,10 @@ db4_2:
     ror
     pha
     bcc db5_1
-    DrawBinaryChar(binary_1_char,18,22)
+    DrawBinaryChar(binary_1_char,19,21)
     jmp db5_2
 db5_1:
-    DrawBinaryChar(binary_0_char,18,22)
+    DrawBinaryChar(binary_0_char,19,21)
 db5_2:
  
     pla
@@ -534,10 +556,10 @@ db5_2:
     ror
     pha
     bcc db6_1
-    DrawBinaryChar(binary_1_char,16,22)
+    DrawBinaryChar(binary_1_char,17,21)
     jmp db6_2
 db6_1:
-    DrawBinaryChar(binary_0_char,16,22)
+    DrawBinaryChar(binary_0_char,17,21)
 db6_2:
 
     pla
@@ -545,10 +567,10 @@ db6_2:
     ror
     
     bcc db7_1
-    DrawBinaryChar(binary_1_char,14,22)
+    DrawBinaryChar(binary_1_char,15,21)
     jmp db7_2
 db7_1:
-    DrawBinaryChar(binary_0_char,14,22)
+    DrawBinaryChar(binary_0_char,15,21)
 db7_2:
 
 exit_binary_counter:
@@ -571,14 +593,31 @@ exit_binary_counter:
 
 hello_message:
 .encoding "screencode_upper"
-.text "  1024 TWITTER FOLLOWERS! SHOUT OUTS: SUTHEK, 8-BIT-HERO, PETZEL, OLAV HOPE, CREATE INVENT PODCAST,"
-.text " THOMAS MULLIGAN, 8 BIT SHOW & TELL, JXYZN SXYZYXN & BITBARN! "
+.text " 1,024 SUBSCRIBERZ!                            "
+.text " ALL RIGHT!                                    "
+.text " PATRONS:                                      "
+.text " -=*(SUTHEK)*=-                                "
+.text " -=*(OLAV HOPE)*=-                             "
+.text " -=*(PETZEL)*=-                                "
+.text " -=*(CREATE INVENT PODCAST)*=-                 "
+.text " -=*(8 BIT SHOW & TELL)*=-                     "
+.text " -=*(JXYZN SXYZYXN!)*=-                        "
+.text " (THANK YOU PATRONS!) "
 .text "WE'VE PUT THIS CODE ON OUR GITHUB SO YOU CAN DOWNLOAD IT. "
-.text "GFX/CODE/SID BY DEADLINE (2022)   "
+.text "GFX/CODE BY DEADLINE - SID FEEL THE BASS BY GASTON... "
+.text "THIS SCROLLER HAS MORE THAN 256 BYTES IN IT. IN FACT, "
+.text "IT IS CODED IN SUCH A WAY THAT IT WILL KEEP SCROLLING "
+.text "THROUGH MEMORY UNTIL IT ENCOUNTERS $FF, WHICH IS WHAT "
+.text "I CODED IT TO LOOK FOR TO END THE SCROLL. "
+.text "THIS WILL BE IN THE THANK YOU SECTION OF OUR GITHUB. "
+.text "I WILL DO A DEDICATED COMMODORE PROGRAMMING VIDEO EXPLAINING "
+.text "HOW I DID THIS. "
+.text " MORE COMMODORE PROGRAMMING AND OTHER GOODNESS COMING IN 2024, SO STAY TUNED! "
+.text "                          -=*(DEADLINE/CXN)*=-      "
 .byte $ff
 
 color_table:
-.byte DARK_GRAY, GRAY, LIGHT_GRAY, WHITE, LIGHT_GRAY, GRAY, DARK_GRAY
+.byte BLACK, BLUE, LIGHT_BLUE, WHITE, WHITE, WHITE, WHITE, LIGHT_BLUE, BLUE, BLACK
 .byte $ff
 
 sprite_color_table:
@@ -595,14 +634,14 @@ sprite_multicolor_table:
 .byte 0,0,0
 
 sprite_loc_table:
-.byte $00,$13,$e0 // yinyang left
-.byte $02,$43,$e0 // yinyang right
-.byte $00,$1c,$ac // eagle
-.byte $00,$90,$32 // nauga
-.byte $10,$1a,$a3 // helm
-.byte $00,$b7,$b8 // youtube triangle
-.byte $00,$64,$94 // clicky
-.byte $00,$b9,$ba // youtube triangle shadow
+.byte $00,$13,$d8 // yinyang left
+.byte $02,$43,$d8 // yinyang right
+.byte $00,$00,$00 // eagle
+.byte $00,$00,$00 // nauga
+.byte $00,$00,$00 // helm .byte $10,$2f,$87 // helm
+.byte $00,$4F,$98 // youtube triangle
+.byte $00,$00,$00 // clicky .byte $00,$87,$c4 // clicky
+.byte $00,$51,$9a // youtube triangle shadow
 .byte $ff
 
 sprite_anim_index_table:

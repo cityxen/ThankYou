@@ -1,18 +1,18 @@
 .label more_binary_counter_1=$ad7
 .label mbc22=$d16
-.label nauga_anim=$1034
+.label nauga_anim=$102e
 .label more_binary_counter_0=$abe
 .label db4_1=$e05 {
 }
 .label db4_2=$e22
-.label tmps=$1053
-.label eagle_anim=$1043
+.label tmps=$104d
+.label eagle_anim=$103d
 .label more_clicky=$a6c
-.label vars=$105b
+.label vars=$1055
 .label timer_var=$2742
 .label loop2=$970
 .label more_color=$9b7
-.label clicky_anim=$1046
+.label clicky_anim=$1040
 .label animate_sprites_5=$a88
 .label animate_sprites_6=$ab1
 .label animate_sprites_3=$a36
@@ -22,7 +22,7 @@
 .label db3_2=$ddf
 .label db3_1=$dc2 {
 }
-.label helm_anim=$1040
+.label helm_anim=$103a
 .label mvover1=$9a7
 .label eag1=$a2d
 .label reset_colors=$9dc
@@ -31,34 +31,34 @@
 .label db6_1=$e8b {
 }
 .label db6_2=$ea8
-.label sinetable=$1076
+.label sinetable=$1070
 .label animate_eagle=$a0d
 .label color_cycle_fill_loop=$89f
-.label sprite_color_table=$ff3
+.label sprite_color_table=$fed
 .label animate_sprites=$9e1
 .label animate_nauga=$a36
 .label click1=$a7f
 .label db5_2=$e65
-.label binary_0_char=$104b
+.label binary_0_char=$1045
 .label db5_1=$e48 {
 }
 .label animate_clicky=$a5f
 .label mvlp2=$995
 .label mvlp1=$98a
-.label binary_1_char=$104f
+.label binary_1_char=$1049
 .label start=$810
-.label irq1=$106a
-.label sprite_anim_index_table=$102c
-.label screen_001=$4000
+.label irq1=$1064
+.label sprite_anim_index_table=$1026
+.label screen_001=$7000
 .label animate_yin_yang=$9e1
 .label db0_1=$cf9 {
 }
 .label db0_2=$d16
-.label color_table=$feb
+.label color_table=$fe5
 .label yy1=$a01
-.label sprite_multicolor_table=$ffb
-.label sprite_loc_table=$1013
-.label yin_yang_anim=$1037
+.label sprite_multicolor_table=$ff5
+.label sprite_loc_table=$100d
+.label yin_yang_anim=$1031
 .label charset=$3000
 .label db7_2=$eea
 .label db7_1=$ecd {
